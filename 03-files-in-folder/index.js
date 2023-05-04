@@ -8,7 +8,7 @@ async function checkFolder() {
     if (file.isFile()) {
       let [fileName] = file['name'].split('.');
       let extension = path.extname(file['name']).slice(1);
-      let fileInfo = fs.stat(path.join(__dirname, 'secret-folder', file['name']));
+      let fileInfo = fs.stat(path.join(foldDirectory, file['name']));
       let result = `${fileName} - ${extension}`;
       checkSize(result, fileInfo);
     }
