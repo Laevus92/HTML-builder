@@ -6,10 +6,10 @@ const files = fs.readdir(foldDirectory, {withFileTypes : true});
 async function checkFolder() {
   (await files).forEach(file => {
     if (file.isFile()) {
-      let [fileName] = file['name'].split('.');
-      let extension = path.extname(file['name']).slice(1);
+      let extension = path.extname(file['name']);
       let fileInfo = fs.stat(path.join(foldDirectory, file['name']));
-      let result = `${fileName} - ${extension}`;
+      let fileName = file['name'].replace(extension, '');
+      let result = `${fileName} - ${extension.slice(1)}`;
       checkSize(result, fileInfo);
     }
   });
