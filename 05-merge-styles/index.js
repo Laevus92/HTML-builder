@@ -29,6 +29,7 @@ async function mergeFiles() {
       });
     }
   }
+  console.log('__SUCCESSFUL!__');
 }
 
 mergeFiles();
