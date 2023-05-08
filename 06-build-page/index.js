@@ -4,7 +4,7 @@ const path = require('path');
 async function copyDir(source, target) {
 
   try {
-    await fs.promises.rmdir(target, { recursive: true });
+    await fs.promises.rm(target, { recursive: true });
   } catch (err) {
     if (err.code !== 'ENOENT') throw err;
   }
@@ -36,7 +36,7 @@ async function mergeFiles(sourceDir, targetFile) {
   }
 
   //create new style.css
-  await fs.promises.open(targetFile, 'w');
+  (await fs.promises.open(targetFile, 'w')).close();
   let data = '';
   const files = await fs.promises.readdir(sourceDir, {withFileTypes : true});
   for (const file of files) {
@@ -58,7 +58,7 @@ async function mergeFiles(sourceDir, targetFile) {
 async function buildPage() {
   //remove project-dist folder
   try {
-    await fs.promises.rmdir(path.join(__dirname, 'project-dist'), { recursive: true });
+    await fs.promises.rm(path.join(__dirname, 'project-dist'), { recursive: true });
   } catch (err) {
     if (err.code !== 'ENOENT') throw err;
   }
@@ -126,7 +126,7 @@ async function buildPage() {
   } catch (err) {
     if (err.code !== 'ENOENT') throw err;
   }
-  await fs.promises.open(indexHtmlTarget, 'w');
+  (await fs.promises.open(indexHtmlTarget, 'w')).close();
   await fs.promises.writeFile(indexHtmlTarget, templateData);
   console.log('__SUCCESSFUL!__');
 }

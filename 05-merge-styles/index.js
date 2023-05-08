@@ -12,7 +12,7 @@ async function mergeFiles() {
   }
 
   //create new bundle.css
-  await fs.promises.open(targetFile, 'w');
+  (await fs.promises.open(targetFile, 'w')).close();
   let data = '';
   const files = await fs.promises.readdir(sourceDir, {withFileTypes : true});
   for (const file of files) {
