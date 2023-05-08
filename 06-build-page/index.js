@@ -41,7 +41,6 @@ async function mergeFiles(sourceDir, targetFile) {
   const files = await fs.promises.readdir(sourceDir, {withFileTypes : true});
   for (const file of files) {
     if (file.isFile() && path.extname(file['name']) === '.css') {
-      data = '';
       const stream = fs.createReadStream(path.join(sourceDir, file['name']), 'utf-8');
       stream.on('data', (chunk) => {
         data += chunk;
@@ -50,6 +49,7 @@ async function mergeFiles(sourceDir, targetFile) {
         fs.appendFile(targetFile, data, err => {
           if (err) throw err;
         });
+        data = '';
       });
     }
   }
