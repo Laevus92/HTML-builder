@@ -14,7 +14,7 @@ async function checkFolder() {
     }
   });
   async function checkSize(data, file) {
-    console.log(`${data} - ${(((await file).size) / 1024)}kb`);
+    console.log(`${data} - ${((await file).size)} bytes`);
   }
 }
 
